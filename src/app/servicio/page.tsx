@@ -66,6 +66,12 @@ export default function ServicioPage() {
           icon={<IconServicio width={20} height={20} stroke="currentColor" />}
         />
         <ServicioCard
+          href="/servicio/bautismos"
+          title="Bautismos"
+          description="Plan de Integración del primer año, con sus 12 hitos automáticos."
+          icon={<IconServicio width={20} height={20} stroke="currentColor" />}
+        />
+        <ServicioCard
           href="/servicio/clases"
           title="Clases y maestros"
           description="Maestros y rotación de suplentes por clase."

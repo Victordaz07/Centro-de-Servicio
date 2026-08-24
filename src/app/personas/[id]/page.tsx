@@ -16,12 +16,17 @@ export default async function PersonaPage({
   const persona = await prisma.persona.findUnique({ where: { id } });
   if (!persona) notFound();
 
+  const bautismo = await prisma.bautismo.findUnique({
+    where: { personaId: id },
+    include: { planIntegracion: { include: { hitos: true } } },
+  });
+
   return (
     <PersonaShell
       q={q}
       showTrash={trash === "1"}
       activeId={id}
-      detail={<PersonaDetail persona={persona} />}
+      detail={<PersonaDetail persona={persona} bautismo={bautismo} />}
     />
   );
 }

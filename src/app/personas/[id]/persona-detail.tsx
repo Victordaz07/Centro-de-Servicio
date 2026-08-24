@@ -11,9 +11,23 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { IconArrowLeft } from "@/components/icons";
+import { PlanIntegracionView, type HitoData } from "@/app/servicio/bautismos/plan-integracion-view";
+import { RegistrarBautismoInline } from "@/app/servicio/bautismos/registrar-bautismo-inline";
 import type { PersonaRowData } from "../types";
 
-export function PersonaDetail({ persona }: { persona: PersonaRowData }) {
+type BautismoConPlan = {
+  id: string;
+  fecha: Date;
+  planIntegracion: { hitos: HitoData[] } | null;
+} | null;
+
+export function PersonaDetail({
+  persona,
+  bautismo,
+}: {
+  persona: PersonaRowData;
+  bautismo: BautismoConPlan;
+}) {
   const [editing, setEditing] = useState(false);
   const [errors, setErrors] = useState<PersonaFormState>(undefined);
   const [pending, startTransition] = useTransition();
@@ -177,12 +191,17 @@ export function PersonaDetail({ persona }: { persona: PersonaRowData }) {
               </Button>
             </div>
           </form>
-        ) : (
-          <div className="rounded-[20px] border border-dashed border-deep-water/15 bg-white/60 p-6 font-sans text-sm text-water-mid">
-            El Plan de Integración y el historial unificado de esta persona llegan en la próxima
-            fase, sobre este mismo perfil.
+        ) : bautismo?.planIntegracion ? (
+          <div className="rounded-[20px] border border-deep-water/8 bg-white p-5">
+            <PlanIntegracionView hitos={bautismo.planIntegracion.hitos} />
           </div>
+        ) : (
+          <RegistrarBautismoInline personaId={persona.id} />
         )}
+
+        <div className="rounded-[20px] border border-dashed border-deep-water/15 bg-white/60 p-6 font-sans text-sm text-water-mid">
+          El historial unificado de esta persona llega en la próxima fase, sobre este mismo perfil.
+        </div>
       </div>
     </div>
   );
