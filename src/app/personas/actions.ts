@@ -86,6 +86,7 @@ export async function updatePersona(
   });
 
   revalidatePath("/personas");
+  revalidatePath(`/personas/${id}`);
   return { message: "Persona actualizada." };
 }
 
@@ -96,6 +97,7 @@ export async function softDeletePersona(id: string) {
     data: { deletedAt: new Date() },
   });
   revalidatePath("/personas");
+  revalidatePath(`/personas/${id}`);
 }
 
 export async function restorePersona(id: string) {
@@ -105,6 +107,7 @@ export async function restorePersona(id: string) {
     data: { deletedAt: null },
   });
   revalidatePath("/personas");
+  revalidatePath(`/personas/${id}`);
 }
 
 // Alta rápida desde un autocompletado (Agenda, Ministración, etc.) cuando la
