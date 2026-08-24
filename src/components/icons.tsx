@@ -72,6 +72,22 @@ export function IconPlus(props: IconProps) {
   );
 }
 
+export function IconCheck(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" strokeWidth={3} strokeLinecap="round" {...props}>
+      <path d="M5 13l4 4 10-10" />
+    </svg>
+  );
+}
+
+export function IconTrash(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <path d="M4 7h16M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2m-8 0 1 12a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1l1-12" />
+    </svg>
+  );
+}
+
 export function IconRing(props: IconProps) {
   return (
     <svg viewBox="0 0 40 40" fill="none" strokeWidth={1.6} {...props}>
