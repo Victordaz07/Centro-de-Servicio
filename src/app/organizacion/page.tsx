@@ -2,7 +2,6 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import { PageHero } from "@/components/shell/page-hero";
 import { Card } from "@/components/ui/card";
-import { EmptyState } from "@/components/ui/empty-state";
 import { IconInicio, IconOrganizacion } from "@/components/icons";
 
 function OrganizacionCard({
@@ -55,6 +54,18 @@ export default function OrganizacionPage() {
           icon={<IconOrganizacion width={20} height={20} stroke="currentColor" />}
         />
         <OrganizacionCard
+          href="/organizacion/llamamientos"
+          title="Llamamientos en consideración"
+          description="Personas en oración, propuestas y extendidas, por llamamiento."
+          icon={<IconOrganizacion width={20} height={20} stroke="currentColor" />}
+        />
+        <OrganizacionCard
+          href="/organizacion/rotaciones"
+          title="Rotaciones"
+          description="Tareas recurrentes con turno entre varias personas."
+          icon={<IconOrganizacion width={20} height={20} stroke="currentColor" />}
+        />
+        <OrganizacionCard
           href="/organizacion/reservas"
           title="Reservas del edificio"
           description="Capilla, salones y aulas por fecha y horario."
@@ -65,12 +76,6 @@ export default function OrganizacionPage() {
           title="Reporte"
           description="Estado general del barrio: lo urgente en un solo vistazo."
           icon={<IconOrganizacion width={20} height={20} stroke="currentColor" />}
-        />
-
-        <EmptyState
-          icon={<IconOrganizacion width={22} height={22} stroke="currentColor" />}
-          title="El resto llega en la próxima fase"
-          description="Llamamientos en consideración y rotaciones se construyen sobre el mismo modelo de Persona ya sembrado."
         />
       </div>
     </main>
