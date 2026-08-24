@@ -43,6 +43,18 @@ export default function OrganizacionPage() {
           icon={<IconInicio width={20} height={20} stroke="currentColor" />}
         />
         <OrganizacionCard
+          href="/organizacion/minutas"
+          title="Minutas"
+          description="Notas de reuniones, editables, con historial de cambios."
+          icon={<IconOrganizacion width={20} height={20} stroke="currentColor" />}
+        />
+        <OrganizacionCard
+          href="/organizacion/asignaciones"
+          title="Asignaciones"
+          description="Qué hay que hacer y quién lo hará."
+          icon={<IconOrganizacion width={20} height={20} stroke="currentColor" />}
+        />
+        <OrganizacionCard
           href="/organizacion/reservas"
           title="Reservas del edificio"
           description="Capilla, salones y aulas por fecha y horario."
@@ -58,7 +70,7 @@ export default function OrganizacionPage() {
         <EmptyState
           icon={<IconOrganizacion width={22} height={22} stroke="currentColor" />}
           title="El resto llega en la próxima fase"
-          description="Minutas, asignaciones, llamamientos y rotaciones se construyen sobre el mismo modelo de Persona ya sembrado."
+          description="Llamamientos en consideración y rotaciones se construyen sobre el mismo modelo de Persona ya sembrado."
         />
       </div>
     </main>
