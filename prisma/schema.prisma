@@ -1,0 +1,319 @@
+// Centro de Servicio — esquema relacional unificado (v3)
+// Persona es la entidad central; Organización y Servicio son vistas sobre estos datos.
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ---------- Auth ----------
+// Roles/llamamientos del único usuario de la app — determinan qué tarjetas de
+// "Servicio" se muestran (ver onboarding, fase 2).
+
+enum Rol {
+  CUORUM_SDS // Cuórum de Élderes / Sociedad de Socorro -> Ministración
+  EJECUTIVO // Secretario Ejecutivo -> Entrevistas
+  OBISPADO // Secretario de Obispado -> Consejo
+  ED // Escuela Dominical -> Clases
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  roles        Rol[]
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+// ---------- Núcleo: Persona ----------
+
+model Persona {
+  id        String    @id @default(cuid())
+  nombres   String
+  apellidos String
+  telefono  String?
+  notas     String?
+  deletedAt DateTime?
+  createdAt DateTime  @default(now())
+
+  familias           Familia[]                  @relation("FamiliaPersonas")
+  ensenanza          EnsenanzaProgreso?
+  bautismo           Bautismo?
+  planIntegracion    PlanIntegracion?
+  llamamientos       LlamamientoConsideracion[]
+  entrevistas        Entrevista[]
+  recomendos         RecomendoTemplo[]
+  clasesComoMaestro  ClaseEscDominical[]
+  referenciasDadas   Referencia[]               @relation("PersonaQueRefiere")
+  referenciaRecibida Referencia?                @relation("PersonaReferida")
+
+  // Campos "responsable"/"nombre" de los operativos de Secretario que la
+  // regla de diseño obliga a ser relaciones reales, no texto libre.
+  agendaItemsResponsable AgendaItem[]     @relation("AgendaResponsable")
+  oradorAsignaciones     OradorAsignado[]
+
+  @@index([apellidos, nombres])
+}
+
+model Familia {
+  id       String    @id @default(cuid())
+  nombre   String
+  personas Persona[] @relation("FamiliaPersonas")
+
+  asignaciones AsignacionMinistracion[]
+}
+
+// ---------- Gather: enseñanza ----------
+
+enum EstadoEnsenanza {
+  CONTACTADO
+  ENSENANDO
+  COMPROMISO_BAUTISMO
+  BAUTIZADO
+}
+
+model EnsenanzaProgreso {
+  id          String          @id @default(cuid())
+  personaId   String          @unique
+  persona     Persona         @relation(fields: [personaId], references: [id])
+  estado      EstadoEnsenanza
+  lecciones   Json // [{ tema, fecha }]
+  compromisos Json // [{ descripcion, cumplido, fecha }]
+}
+
+// ---------- BautizApp: bautismo ----------
+
+model Bautismo {
+  id        String   @id @default(cuid())
+  personaId String?  @unique
+  persona   Persona? @relation(fields: [personaId], references: [id])
+  fecha     DateTime
+  idioma    String   @default("es")
+  himnos    Json
+  programa  Json
+
+  planIntegracion PlanIntegracion?
+}
+
+// ---------- Secretario: ministración ----------
+
+model Companerismo {
+  id        String    @id @default(cuid())
+  nombres   String // p.ej. "Hno. García / Hna. López"
+  deletedAt DateTime?
+
+  asignaciones AsignacionMinistracion[]
+}
+
+model AsignacionMinistracion {
+  id             String       @id @default(cuid())
+  companerismoId String
+  companerismo   Companerismo @relation(fields: [companerismoId], references: [id])
+  familiaId      String
+  familia        Familia      @relation(fields: [familiaId], references: [id])
+  ultimoContacto DateTime?
+  deletedAt      DateTime?
+
+  @@index([companerismoId])
+  @@index([familiaId])
+}
+
+// ---------- Secretario: llamamientos ----------
+
+enum EstadoLlamamiento {
+  ORANDO
+  PROPUESTO
+  EXTENDIDO
+}
+
+model LlamamientoConsideracion {
+  id                   String            @id @default(cuid())
+  personaId            String
+  persona              Persona           @relation(fields: [personaId], references: [id])
+  llamamientoPropuesto String
+  estado               EstadoLlamamiento @default(ORANDO)
+  history              Json
+  deletedAt            DateTime?
+
+  @@index([personaId])
+}
+
+// ---------- Secretario: entrevistas ----------
+
+enum EstadoEntrevista {
+  PENDIENTE
+  AGENDADA
+  HECHA
+}
+
+model Entrevista {
+  id        String           @id @default(cuid())
+  personaId String
+  persona   Persona          @relation(fields: [personaId], references: [id])
+  motivo    String
+  fecha     DateTime?
+  estado    EstadoEntrevista @default(PENDIENTE)
+  deletedAt DateTime?
+
+  @@index([personaId])
+}
+
+// ---------- Obispado: recomendos del templo ----------
+
+model RecomendoTemplo {
+  id               String   @id @default(cuid())
+  personaId        String
+  persona          Persona  @relation(fields: [personaId], references: [id])
+  fechaVencimiento DateTime
+  notas            String?
+
+  @@index([personaId])
+}
+
+// ---------- Obispado: programa sacramental ----------
+
+model ProgramaSacramental {
+  id               String   @id @default(cuid())
+  fecha            DateTime
+  numerosMusicales Json
+  conductor        String?
+
+  oradores OradorAsignado[]
+}
+
+model OradorAsignado {
+  id         String              @id @default(cuid())
+  programaId String
+  programa   ProgramaSacramental @relation(fields: [programaId], references: [id])
+  personaId  String
+  persona    Persona             @relation(fields: [personaId], references: [id])
+  tema       String?
+
+  @@index([programaId])
+  @@index([personaId])
+}
+
+// ---------- Obispado: reservas del edificio ----------
+
+model ReservaEdificio {
+  id          String   @id @default(cuid())
+  fecha       DateTime
+  horaInicio  String
+  horaFin     String
+  area        String
+  solicitante String
+  proposito   String?
+}
+
+// ---------- Secretario: clases de Escuela Dominical ----------
+
+model ClaseEscDominical {
+  id                  String    @id @default(cuid())
+  nombre              String
+  maestroPersonaId    String?
+  maestro             Persona?  @relation(fields: [maestroPersonaId], references: [id])
+  suplentes           Json // [personaId] — mismo patrón de rotación que Rotacion
+  turnoActualSuplente Int       @default(0)
+  deletedAt           DateTime?
+
+  @@index([maestroPersonaId])
+}
+
+// ---------- Gather: referencias ----------
+
+model Referencia {
+  id                  String   @id @default(cuid())
+  personaQueRefiereId String
+  personaQueRefiere   Persona  @relation("PersonaQueRefiere", fields: [personaQueRefiereId], references: [id])
+  personaReferidaId   String?  @unique
+  personaReferida     Persona? @relation("PersonaReferida", fields: [personaReferidaId], references: [id])
+  fecha               DateTime @default(now())
+  contactada          Boolean  @default(false)
+  notas               String?
+
+  @@index([personaQueRefiereId])
+}
+
+// ---------- Plan de integración del miembro nuevo ----------
+// Se instancia automáticamente con sus 12 hitos al crear un Bautismo
+// (fuente: plan de progreso del miembro nuevo de la presidencia de estaca).
+
+model PlanIntegracion {
+  id            String   @id @default(cuid())
+  personaId     String   @unique
+  persona       Persona  @relation(fields: [personaId], references: [id])
+  bautismoId    String   @unique
+  bautismo      Bautismo @relation(fields: [bautismoId], references: [id])
+  fechaBautismo DateTime
+
+  hitos HitoIntegracion[]
+}
+
+model HitoIntegracion {
+  id                String          @id @default(cuid())
+  planId            String
+  plan              PlanIntegracion @relation(fields: [planId], references: [id])
+  ventana           String // "Semana 1", "Mes 1", "Año 1"…
+  ordenVentana      Int
+  diasDesdeBautismo Int
+  accion            String
+  responsableRoles  String[] // etiquetas libres: 'obispado', 'cuorum_sds', 'mision'…
+  completado        Boolean         @default(false)
+  completadoPor     String?
+  completadoFecha   DateTime?
+  notas             String?
+
+  @@index([planId])
+}
+
+// ---------- Operativos de Secretario, sin relación directa a Persona ----------
+
+model AgendaItem {
+  id                   String   @id @default(cuid())
+  texto                String
+  responsablePersonaId String?
+  responsable          Persona? @relation("AgendaResponsable", fields: [responsablePersonaId], references: [id])
+  completado           Boolean  @default(false)
+
+  @@index([responsablePersonaId])
+}
+
+model Minuta {
+  id        String    @id @default(cuid())
+  fecha     DateTime
+  texto     String
+  history   Json
+  editedAt  DateTime?
+  deletedAt DateTime?
+}
+
+model Tarea {
+  id         String    @id @default(cuid())
+  quien      String
+  que        String
+  completado Boolean   @default(false)
+  history    Json
+  deletedAt  DateTime?
+}
+
+model Rotacion {
+  id          String    @id @default(cuid())
+  tarea       String
+  personas    Json
+  turnoActual Int       @default(0)
+  turnHistory Json
+  deletedAt   DateTime?
+}
+
+model ConsejoBarrio {
+  id    String   @id @default(cuid())
+  fecha DateTime
+  items Json
+  notas String?
+}

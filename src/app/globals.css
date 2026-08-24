@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f7f1e4;
+  --foreground: #1e2c2a;
+
+  /* Centro de Servicio — design tokens */
+  --deep-water: #0e3b43;
+  --water-mid: #1b5560;
+  --living-teal: #2f8f92;
+  --dawn-coral: #e07856;
+  --dawn-coral-dim: #f0af97;
+  --linen: #f7f1e4;
+  --linen-dim: #efe4cb;
+  --mist: #dceae8;
+  --ink: #1e2c2a;
+  --line: #d9cdae;
+  --sage: #5f8f6b;
+  --sage-light: #e6efe4;
+  --amber: #c08a3e;
+  --amber-light: #f5ead3;
+  --rojo: #a13f2e;
+  --rojo-light: #f3dfd8;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  --color-deep-water: var(--deep-water);
+  --color-water-mid: var(--water-mid);
+  --color-living-teal: var(--living-teal);
+  --color-dawn-coral: var(--dawn-coral);
+  --color-dawn-coral-dim: var(--dawn-coral-dim);
+  --color-linen: var(--linen);
+  --color-linen-dim: var(--linen-dim);
+  --color-mist: var(--mist);
+  --color-ink: var(--ink);
+  --color-line: var(--line);
+  --color-sage: var(--sage);
+  --color-sage-light: var(--sage-light);
+  --color-amber: var(--amber);
+  --color-amber-light: var(--amber-light);
+  --color-rojo: var(--rojo);
+  --color-rojo-light: var(--rojo-light);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
