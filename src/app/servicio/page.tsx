@@ -54,11 +54,17 @@ export default function ServicioPage() {
           description="Vencimientos del recomendo del templo, con renovación rápida."
           icon={<IconServicio width={20} height={20} stroke="currentColor" />}
         />
+        <ServicioCard
+          href="/servicio/oradores"
+          title="Oradores y música"
+          description="Programa sacramental por domingo: oradores, temas y números musicales."
+          icon={<IconServicio width={20} height={20} stroke="currentColor" />}
+        />
 
         <EmptyState
           icon={<IconServicio width={22} height={22} stroke="currentColor" />}
           title="El resto llega en la próxima fase"
-          description="Oradores y música, nuevos miembros y clases se activan según los llamamientos configurados en Ajustes."
+          description="Nuevos miembros y clases se activan según los llamamientos configurados en Ajustes."
         />
       </div>
     </main>
