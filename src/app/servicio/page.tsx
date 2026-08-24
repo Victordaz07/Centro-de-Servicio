@@ -2,7 +2,6 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import { PageHero } from "@/components/shell/page-hero";
 import { Card } from "@/components/ui/card";
-import { EmptyState } from "@/components/ui/empty-state";
 import { IconServicio } from "@/components/icons";
 
 function ServicioCard({
@@ -60,11 +59,17 @@ export default function ServicioPage() {
           description="Programa sacramental por domingo: oradores, temas y números musicales."
           icon={<IconServicio width={20} height={20} stroke="currentColor" />}
         />
-
-        <EmptyState
-          icon={<IconServicio width={22} height={22} stroke="currentColor" />}
-          title="El resto llega en la próxima fase"
-          description="Nuevos miembros y clases se activan según los llamamientos configurados en Ajustes."
+        <ServicioCard
+          href="/servicio/nuevos-miembros"
+          title="Nuevos miembros"
+          description="Enseñanza, lecciones, compromisos y referencias (Gather)."
+          icon={<IconServicio width={20} height={20} stroke="currentColor" />}
+        />
+        <ServicioCard
+          href="/servicio/clases"
+          title="Clases y maestros"
+          description="Maestros y rotación de suplentes por clase."
+          icon={<IconServicio width={20} height={20} stroke="currentColor" />}
         />
       </div>
     </main>
