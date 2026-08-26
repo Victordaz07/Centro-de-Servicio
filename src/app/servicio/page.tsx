@@ -33,7 +33,11 @@ function ServicioCard({
 export default function ServicioPage() {
   return (
     <main className="flex flex-1 flex-col">
-      <PageHero eyebrow="Servicio" title="Módulos por llamamiento" />
+      <PageHero
+        eyebrow="Servicio"
+        title="Módulos por llamamiento"
+        image="/art/header-ministracion-servicio.webp"
+      />
       <div className="mx-auto flex w-full max-w-3xl flex-col gap-4 px-6 py-6 lg:px-10">
         <ServicioCard
           href="/servicio/ministracion"

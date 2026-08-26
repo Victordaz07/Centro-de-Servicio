@@ -44,6 +44,7 @@ export default async function RotacionesPage({
         {rotaciones.length === 0 ? (
           <EmptyState
             icon={<IconOrganizacion width={22} height={22} stroke="currentColor" />}
+            illustration={!showTrash}
             title={showTrash ? "La papelera está vacía" : "Sin rotaciones todavía"}
             description={
               showTrash ? undefined : "Crea la primera rotación para una tarea recurrente."

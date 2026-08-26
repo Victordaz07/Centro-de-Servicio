@@ -23,7 +23,7 @@ export default async function MinutasPage({
 
   return (
     <main className="flex flex-1 flex-col">
-      <PageHero eyebrow="Organización" title="Minutas" />
+      <PageHero eyebrow="Organización" title="Minutas" image="/art/header-minutas-agenda.webp" />
 
       <div className="mx-auto flex w-full max-w-2xl flex-col gap-3 px-6 py-6 lg:px-10">
         {!showTrash && <CreateMinutaForm />}
@@ -31,6 +31,7 @@ export default async function MinutasPage({
         {minutas.length === 0 ? (
           <EmptyState
             icon={<IconOrganizacion width={22} height={22} stroke="currentColor" />}
+            illustration={!showTrash}
             title={showTrash ? "La papelera está vacía" : "Sin minutas todavía"}
             description={showTrash ? undefined : "Registra la minuta de la primera reunión."}
           />

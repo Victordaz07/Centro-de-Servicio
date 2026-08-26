@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Fraunces, Karla } from "next/font/google";
 import { Providers } from "@/components/providers";
 import { ShellGate } from "@/components/shell/shell-gate";
@@ -19,6 +19,15 @@ const karla = Karla({
 export const metadata: Metadata = {
   title: "Centro de Servicio",
   description: "Secretario, Gather y BautizApp unificados sobre un mismo modelo de datos.",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "Centro de Servicio",
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#0e3b43",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

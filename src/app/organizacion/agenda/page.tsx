@@ -23,6 +23,7 @@ export default async function AgendaPage() {
         eyebrow="Organización"
         title="Agenda"
         subtitle={total > 0 ? `${completados} de ${total} puntos cubiertos` : "Sin puntos todavía"}
+        image="/art/header-minutas-agenda.webp"
       >
         {total > 0 && (
           <div className="mt-1 h-1.5 w-full max-w-sm overflow-hidden rounded-full bg-mist/20">
@@ -40,6 +41,7 @@ export default async function AgendaPage() {
         {items.length === 0 ? (
           <EmptyState
             icon={<IconInicio width={22} height={22} stroke="currentColor" />}
+            illustration
             title="Sin puntos de agenda"
             description="Agrega el primer punto para empezar a armar el consejo o la reunión de hoy."
           />

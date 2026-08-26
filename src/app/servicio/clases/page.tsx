@@ -45,6 +45,7 @@ export default async function ClasesPage({
         {clases.length === 0 ? (
           <EmptyState
             icon={<IconServicio width={22} height={22} stroke="currentColor" />}
+            illustration={!showTrash}
             title={showTrash ? "La papelera está vacía" : "Sin clases todavía"}
             description={showTrash ? undefined : "Crea la primera clase de Escuela Dominical."}
           />

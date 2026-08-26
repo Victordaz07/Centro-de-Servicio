@@ -27,6 +27,7 @@ export default async function OradoresPage() {
         {programas.length === 0 ? (
           <EmptyState
             icon={<IconServicio width={22} height={22} stroke="currentColor" />}
+            illustration
             title="Sin programas todavía"
             description="Crea el primer domingo para empezar a asignar oradores y números musicales."
           />

@@ -44,6 +44,7 @@ export default async function MinistracionPage({
         eyebrow="Servicio · Cuórum de Élderes / Sociedad de Socorro"
         title="Ministración"
         subtitle={`${companerismos.length} compañerismos · ${asignaciones.filter((a) => !a.deletedAt).length} familias asignadas`}
+        image="/art/header-ministracion-servicio.webp"
       />
 
       <div className="mx-auto flex w-full max-w-2xl flex-col gap-4 px-6 py-6 lg:px-10">
@@ -57,6 +58,7 @@ export default async function MinistracionPage({
         {asignaciones.length === 0 ? (
           <EmptyState
             icon={<IconServicio width={22} height={22} stroke="currentColor" />}
+            illustration={!showTrash}
             title={showTrash ? "La papelera está vacía" : "Sin asignaciones todavía"}
             description={
               showTrash

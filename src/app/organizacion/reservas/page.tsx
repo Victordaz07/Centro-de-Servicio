@@ -29,6 +29,7 @@ export default async function ReservasPage() {
         {reservas.length === 0 ? (
           <EmptyState
             icon={<IconOrganizacion width={22} height={22} stroke="currentColor" />}
+            illustration
             title="Sin reservas todavía"
             description="Crea la primera reserva de un área del edificio."
           />

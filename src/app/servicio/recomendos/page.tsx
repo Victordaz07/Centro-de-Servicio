@@ -33,6 +33,7 @@ export default async function RecomendosPage() {
         {recomendos.length === 0 ? (
           <EmptyState
             icon={<IconServicio width={22} height={22} stroke="currentColor" />}
+            illustration
             title="Sin recomendos todavía"
             description="Registra la fecha de vencimiento del recomendo del templo de una persona."
           />

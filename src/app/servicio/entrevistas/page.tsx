@@ -48,6 +48,7 @@ export default async function EntrevistasPage({
         {entrevistas.length === 0 ? (
           <EmptyState
             icon={<IconServicio width={22} height={22} stroke="currentColor" />}
+            illustration={!showTrash}
             title={showTrash ? "La papelera está vacía" : "Sin entrevistas todavía"}
             description={
               showTrash ? undefined : "Registra la primera entrevista pendiente con una persona."

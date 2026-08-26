@@ -25,7 +25,11 @@ export default async function NuevosMiembrosPage() {
 
   return (
     <main className="flex flex-1 flex-col">
-      <PageHero eyebrow="Servicio · Líder misional · Gather" title="Nuevos miembros" />
+      <PageHero
+        eyebrow="Servicio · Líder misional · Gather"
+        title="Nuevos miembros"
+        image="/art/header-nuevos-miembros-integracion.webp"
+      />
 
       <div className="mx-auto flex w-full max-w-2xl flex-col gap-6 px-6 py-6 lg:px-10">
         <div className="flex flex-col gap-3">
@@ -36,6 +40,7 @@ export default async function NuevosMiembrosPage() {
           {ensenanzas.length === 0 ? (
             <EmptyState
               icon={<IconServicio width={22} height={22} stroke="currentColor" />}
+              illustration
               title="Sin nadie en enseñanza todavía"
               description="Agrega a la primera persona con quien estás enseñando."
             />
@@ -63,6 +68,7 @@ export default async function NuevosMiembrosPage() {
           {referencias.length === 0 ? (
             <EmptyState
               icon={<IconServicio width={22} height={22} stroke="currentColor" />}
+              illustration
               title="Sin referencias todavía"
               description="Registra la primera referencia de los misioneros o de un miembro."
             />

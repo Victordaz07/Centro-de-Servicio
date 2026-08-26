@@ -45,6 +45,7 @@ export async function PersonaShell({
           eyebrow={showTrash ? "Papelera" : "Directorio del barrio"}
           title="Personas"
           subtitle={`${personas.length} ${showTrash ? "en papelera" : "registradas"}`}
+          image="/art/header-perfil-persona.webp"
         />
         <div className="flex flex-1 flex-col gap-3 p-4">
           <PersonaSearchForm q={q} showTrash={showTrash} />

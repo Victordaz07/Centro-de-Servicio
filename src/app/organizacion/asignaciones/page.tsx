@@ -37,6 +37,7 @@ export default async function AsignacionesPage({
         {tareas.length === 0 ? (
           <EmptyState
             icon={<IconOrganizacion width={22} height={22} stroke="currentColor" />}
+            illustration={!showTrash}
             title={showTrash ? "La papelera está vacía" : "Sin asignaciones todavía"}
             description={showTrash ? undefined : "Crea la primera asignación para el barrio."}
           />

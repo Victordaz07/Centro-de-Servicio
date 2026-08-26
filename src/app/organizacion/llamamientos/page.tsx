@@ -26,7 +26,11 @@ export default async function LlamamientosPage({
 
   return (
     <main className="flex flex-1 flex-col">
-      <PageHero eyebrow="Organización" title="Llamamientos en consideración" />
+      <PageHero
+        eyebrow="Organización"
+        title="Llamamientos en consideración"
+        image="/art/header-llamamientos-onboarding.webp"
+      />
 
       <div className="mx-auto flex w-full max-w-2xl flex-col gap-3 px-6 py-6 lg:px-10">
         {!showTrash && <CreateLlamamientoForm />}
@@ -34,6 +38,7 @@ export default async function LlamamientosPage({
         {llamamientos.length === 0 ? (
           <EmptyState
             icon={<IconOrganizacion width={22} height={22} stroke="currentColor" />}
+            illustration={!showTrash}
             title={showTrash ? "La papelera está vacía" : "Sin consideraciones todavía"}
             description={
               showTrash ? undefined : "Registra la primera persona en consideración para un llamamiento."

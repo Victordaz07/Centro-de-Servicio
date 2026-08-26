@@ -46,17 +46,11 @@ export function PersonaDetail({
 
   return (
     <div className="flex flex-1 flex-col">
-      <div className="relative overflow-hidden bg-deep-water px-6 pt-6 pb-6 lg:px-10 lg:pt-8">
-        <svg
-          viewBox="0 0 200 200"
-          className="pointer-events-none absolute -top-20 -right-10 h-56 w-56 opacity-[.15]"
-          fill="none"
-          stroke="var(--mist)"
-        >
-          <circle cx="100" cy="100" r="28" />
-          <circle cx="100" cy="100" r="52" />
-          <circle cx="100" cy="100" r="78" />
-        </svg>
+      <div
+        className="relative overflow-hidden bg-deep-water bg-cover px-6 pt-6 pb-6 lg:px-10 lg:pt-8"
+        style={{ backgroundImage: "url(/art/header-perfil-persona.webp)", backgroundPosition: "center right" }}
+      >
+        <div className="pointer-events-none absolute inset-0 bg-deep-water/[.18]" />
 
         <Link
           href="/personas"

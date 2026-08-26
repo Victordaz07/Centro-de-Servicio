@@ -23,6 +23,7 @@ export default async function BautismosPage() {
         eyebrow="Servicio · BautizApp"
         title="Bautismos"
         subtitle="Plan de Integración del primer año, por persona"
+        image="/art/header-nuevos-miembros-integracion.webp"
       />
 
       <div className="mx-auto flex w-full max-w-2xl flex-col gap-3 px-6 py-6 lg:px-10">
@@ -31,6 +32,7 @@ export default async function BautismosPage() {
         {bautismos.length === 0 ? (
           <EmptyState
             icon={<IconServicio width={22} height={22} stroke="currentColor" />}
+            illustration
             title="Sin bautismos registrados"
             description="Registra el primer bautismo para generar su Plan de Integración."
           />

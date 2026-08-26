@@ -34,6 +34,7 @@ export default async function InicioPage() {
         eyebrow={fecha}
         title={`${greeting(now.getHours())}${session?.user?.email ? `, ${session.user.email.split("@")[0]}` : ""}`}
         subtitle="Esto es lo que hay en el sistema hoy."
+        image="/art/hero-inicio.webp"
       />
 
       <div className="mx-auto flex w-full max-w-3xl flex-col gap-6 px-6 py-6 lg:px-10">

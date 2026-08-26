@@ -52,6 +52,6 @@
 }
 
 body {
-  background: var(--background);
+  background: var(--background) url("/art/fondo-app.webp") center top / cover no-repeat fixed;
   color: var(--foreground);
 }
