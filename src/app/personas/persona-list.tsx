@@ -4,9 +4,11 @@ import type { PersonaRowData } from "./types";
 export function PersonaList({
   personas,
   activeId,
+  query,
 }: {
   personas: PersonaRowData[];
   activeId?: string;
+  query?: string;
 }) {
   if (personas.length === 0) {
     return (
@@ -20,7 +22,7 @@ export function PersonaList({
     <ul className="flex flex-col gap-1.5">
       {personas.map((persona) => (
         <li key={persona.id}>
-          <PersonaRow persona={persona} active={persona.id === activeId} />
+          <PersonaRow persona={persona} active={persona.id === activeId} query={query} />
         </li>
       ))}
     </ul>

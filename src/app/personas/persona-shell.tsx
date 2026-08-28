@@ -34,6 +34,11 @@ export async function PersonaShell({
     orderBy: [{ apellidos: "asc" }, { nombres: "asc" }],
   });
 
+  const params = new URLSearchParams();
+  if (q?.trim()) params.set("q", q.trim());
+  if (showTrash) params.set("trash", "1");
+  const query = params.size > 0 ? `?${params.toString()}` : "";
+
   return (
     <main className="flex flex-1 flex-col lg:flex-row lg:items-stretch">
       <div
@@ -50,7 +55,7 @@ export async function PersonaShell({
         <div className="flex flex-1 flex-col gap-3 p-4">
           <PersonaSearchForm q={q} showTrash={showTrash} />
           {!showTrash && <CreatePersonaForm />}
-          <PersonaList personas={personas} activeId={activeId} />
+          <PersonaList personas={personas} activeId={activeId} query={query} />
           <Link
             href={showTrash ? "/personas" : "/personas?trash=1"}
             className="mt-auto pt-2 text-center font-sans text-xs font-medium text-ink/60 hover:text-deep-water"

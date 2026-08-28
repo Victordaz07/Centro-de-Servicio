@@ -73,8 +73,14 @@ export async function removePersonaRotacion(rotacionId: string, personaId: strin
     select: { personas: true, turnoActual: true },
   });
   const actuales = (rotacion.personas as string[]) ?? [];
+  const activoId = actuales[rotacion.turnoActual];
   const nuevos = actuales.filter((id) => id !== personaId);
-  const nuevoTurno = nuevos.length === 0 ? 0 : Math.min(rotacion.turnoActual, nuevos.length - 1);
+
+  let nuevoTurno = 0;
+  if (nuevos.length > 0) {
+    const nuevoIndex = activoId ? nuevos.indexOf(activoId) : -1;
+    nuevoTurno = nuevoIndex !== -1 ? nuevoIndex : Math.min(rotacion.turnoActual, nuevos.length - 1);
+  }
 
   await prisma.rotacion.update({
     where: { id: rotacionId },

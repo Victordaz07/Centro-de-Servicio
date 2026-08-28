@@ -24,9 +24,11 @@ type BautismoConPlan = {
 export function PersonaDetail({
   persona,
   bautismo,
+  backHref = "/personas",
 }: {
   persona: PersonaRowData;
   bautismo: BautismoConPlan;
+  backHref?: string;
 }) {
   const [editing, setEditing] = useState(false);
   const [errors, setErrors] = useState<PersonaFormState>(undefined);
@@ -53,7 +55,7 @@ export function PersonaDetail({
         <div className="pointer-events-none absolute inset-0 bg-deep-water/[.18]" />
 
         <Link
-          href="/personas"
+          href={backHref}
           className="relative mb-3 inline-flex h-10 w-10 items-center justify-center rounded-full text-mist lg:hidden"
         >
           <IconArrowLeft width={20} height={20} stroke="currentColor" />

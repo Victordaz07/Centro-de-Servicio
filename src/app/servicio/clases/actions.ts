@@ -82,9 +82,15 @@ export async function removeSuplente(claseId: string, personaId: string) {
   const index = actuales.indexOf(personaId);
   if (index === -1) return;
 
+  const activoId = actuales[clase.turnoActualSuplente];
   const nuevos = actuales.filter((id) => id !== personaId);
-  const nuevoTurno =
-    nuevos.length === 0 ? 0 : Math.min(clase.turnoActualSuplente, nuevos.length - 1);
+
+  let nuevoTurno = 0;
+  if (nuevos.length > 0) {
+    const nuevoIndex = activoId ? nuevos.indexOf(activoId) : -1;
+    nuevoTurno =
+      nuevoIndex !== -1 ? nuevoIndex : Math.min(clase.turnoActualSuplente, nuevos.length - 1);
+  }
 
   await prisma.claseEscDominical.update({
     where: { id: claseId },

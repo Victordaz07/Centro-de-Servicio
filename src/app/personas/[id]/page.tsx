@@ -21,12 +21,17 @@ export default async function PersonaPage({
     include: { planIntegracion: { include: { hitos: true } } },
   });
 
+  const backParams = new URLSearchParams();
+  if (q?.trim()) backParams.set("q", q.trim());
+  if (trash === "1") backParams.set("trash", "1");
+  const backHref = backParams.size > 0 ? `/personas?${backParams.toString()}` : "/personas";
+
   return (
     <PersonaShell
       q={q}
       showTrash={trash === "1"}
       activeId={id}
-      detail={<PersonaDetail persona={persona} bautismo={bautismo} />}
+      detail={<PersonaDetail persona={persona} bautismo={bautismo} backHref={backHref} />}
     />
   );
 }

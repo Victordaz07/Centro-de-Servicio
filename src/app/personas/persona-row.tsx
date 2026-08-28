@@ -9,15 +9,17 @@ function initials(nombres: string, apellidos: string) {
 export function PersonaRow({
   persona,
   active,
+  query,
 }: {
   persona: PersonaRowData;
   active: boolean;
+  query?: string;
 }) {
   const secondary = [persona.telefono, persona.notas].filter(Boolean).join(" · ");
 
   return (
     <Link
-      href={`/personas/${persona.id}`}
+      href={`/personas/${persona.id}${query ?? ""}`}
       className={`flex min-h-[62px] items-center gap-3 rounded-2xl border bg-white p-2.5 transition ${
         active ? "border-[1.5px] border-living-teal" : "border-deep-water/8"
       } ${persona.deletedAt ? "opacity-60" : ""}`}
