@@ -6,8 +6,8 @@ Construido hasta ahora: **fase 1** (esquema + auth + CRUD de Persona). El shell 
 
 ## Setup
 
-1. Copia tu connection string de Postgres (Vercel Postgres o Supabase) en `.env` → `DATABASE_URL`.
-2. Ajusta `SEED_ADMIN_EMAIL` / `SEED_ADMIN_PASSWORD` en `.env` (tu login inicial).
+1. Copia `.env.example` a `.env` y completa `DATABASE_URL` con tu connection string de Postgres (Vercel Postgres o Supabase).
+2. Ajusta `SEED_ADMIN_EMAIL` / `SEED_ADMIN_PASSWORD` en `.env` (tu login inicial) y genera un `AUTH_SECRET` con `openssl rand -base64 32`.
 3. Crea las tablas y siembra tu usuario:
 
    ```bash

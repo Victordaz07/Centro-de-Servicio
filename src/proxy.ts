@@ -17,5 +17,9 @@ export default auth((req) => {
 });
 
 export const config = {
-  matcher: ["/((?!api/auth|_next/static|_next/image|favicon.ico).*)"],
+  // Excluye también cualquier archivo estático (con extensión: /art/*.webp,
+  // /icons/*.png, /icon.png, /manifest.webmanifest...), no solo favicon.ico —
+  // si no, el optimizador de imágenes de Next hace un fetch interno sin la
+  // cookie de sesión y el proxy lo redirige a /login, rompiendo la imagen.
+  matcher: ["/((?!api/auth|_next/static|_next/image|.*\\.[\\w]+$).*)"],
 };

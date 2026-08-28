@@ -4,14 +4,16 @@
   --background: #f7f1e4;
   --foreground: #1e2c2a;
 
-  /* Centro de Servicio — design tokens */
+  /* Centro de Servicio — design tokens (ver Claude Design: "librería") */
   --deep-water: #0e3b43;
   --water-mid: #1b5560;
   --living-teal: #2f8f92;
+  --teal-bright: #5bc0c4;
   --dawn-coral: #e07856;
   --dawn-coral-dim: #f0af97;
   --linen: #f7f1e4;
   --linen-dim: #efe4cb;
+  --cream: #fff8f2;
   --mist: #dceae8;
   --ink: #1e2c2a;
   --line: #d9cdae;
@@ -26,16 +28,18 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-karla), Karla, sans-serif;
+  --font-serif: var(--font-fraunces), Fraunces, serif;
 
   --color-deep-water: var(--deep-water);
   --color-water-mid: var(--water-mid);
   --color-living-teal: var(--living-teal);
+  --color-teal-bright: var(--teal-bright);
   --color-dawn-coral: var(--dawn-coral);
   --color-dawn-coral-dim: var(--dawn-coral-dim);
   --color-linen: var(--linen);
   --color-linen-dim: var(--linen-dim);
+  --color-cream: var(--cream);
   --color-mist: var(--mist);
   --color-ink: var(--ink);
   --color-line: var(--line);
@@ -48,7 +52,6 @@
 }
 
 body {
-  background: var(--background);
+  background: var(--background) url("/art/fondo-app.webp") center top / cover no-repeat fixed;
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
 }
